@@ -53,4 +53,23 @@ nx serve demoapp
 
 The application can now be viewed at http://localhost:4200/
 
+## Update packages
+
+Update Nx and Angular core packages first:
+```sh
+nx migrate latest
+```
+
+Then run:
+```sh
+npm install
+```
+
+and
+```sh
+nx migrate --run-migrations
+```
+
+After that, notice that some packages have been removed from `package-lock.json`.
+
 
