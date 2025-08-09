@@ -93,4 +93,51 @@ npm install
 Updating *all* packages at once can easily cause version mismatches,
 especially with things like TypeScript, ESLint, or Nx itself.
 
+## Convert the application to a zoneless application
+
+Modify `apps/demoapp/src/app/app-config.ts`:
+
+- Replace `provideZoneChangeDetection`
+- with `provideZonelessChangeDetection`.
+
+After that, the file should look as follows:
+```ts
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { appRoutes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(appRoutes),
+  ],
+};
+```
+
+Modify `project.json`:
+
+- remove the reference to `zone.js` from `"polyfills": ["zone.js"]`
+- to `"polyfills": []`.
+
+Afterwards uninstall `zone.js`:
+
+```sh
+npm uninstall zone.js
+```
+
+and refresh `node_modules`
+```sh
+rm -rf node_modules
+rm package-lock.json
+npm install
+```
+
+After that, there will still be some references to `zone.js` in `package-lock.json`. This is not problematic.
+It’s just a record that one of the installed packages declares `zone.js` as a peer dependency.
+
 
