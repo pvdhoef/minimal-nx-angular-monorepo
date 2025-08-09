@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
      Delete this file and get started with your project!
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      -->
+    <!--
     <style>
       html {
         -webkit-text-size-adjust: 100%;
@@ -426,6 +427,7 @@ import { CommonModule } from '@angular/common';
         }
       }
     </style>
+    -->
     <div class="wrapper">
       <div class="container">
         <!--  WELCOME  -->
@@ -776,11 +778,11 @@ import { CommonModule } from '@angular/common';
               Build, test and lint your app
             </summary>
             <pre><span># Build</span>
-nx build 
+nx build
 <span># Test</span>
-nx test 
+nx test
 <span># Lint</span>
-nx lint 
+nx lint
 <span># Run them together!</span>
 nx run-many -t build test lint</pre>
           </details>
