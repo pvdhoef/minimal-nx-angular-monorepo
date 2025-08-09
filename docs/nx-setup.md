@@ -121,7 +121,9 @@ export const appConfig: ApplicationConfig = {
 
 Modify `project.json`:
 
-- remove the reference to `zone.js` from `"polyfills": ["zone.js"]`
+Remove the reference to `zone.js`
+
+- from `"polyfills": ["zone.js"]`
 - to `"polyfills": []`.
 
 Afterwards uninstall `zone.js`:
@@ -139,5 +141,11 @@ npm install
 
 After that, there will still be some references to `zone.js` in `package-lock.json`. This is not problematic.
 It’s just a record that one of the installed packages declares `zone.js` as a peer dependency.
+
+## Delete the `nx-welcome.ts` component
+
+Delete the file `apps/demoapp/src/app/nx-welcome.ts` and all references to it (`NxWelcome`, `<app-nx-welcome>`).
+
+Instead of the `<app-nx-welcome>` element insert `<div>Hi there!</div>` in `apps/demoapp/src/app/app.html`.
 
 
