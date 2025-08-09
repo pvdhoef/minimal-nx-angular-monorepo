@@ -146,6 +146,27 @@ It’s just a record that one of the installed packages declares `zone.js` as a 
 
 Delete the file `apps/demoapp/src/app/nx-welcome.ts` and all references to it (`NxWelcome`, `<app-nx-welcome>`).
 
-Instead of the `<app-nx-welcome>` element insert `<div>Hi there!</div>` in `apps/demoapp/src/app/app.html`.
+Instead of the `<app-nx-welcome>` element insert `<h1>Welcome demoapp</h1>` in `apps/demoapp/src/app/app.html`.
 
+## Run automated tests
+
+Run the tests for the `demoapp` project:
+```sh
+nx test demoapp
+```
+
+... and see that it fails dramatically.
+
+The test runner setup is still configured for Angular’s default `zone.js`-based testing, so even though
+the app is zoneless, the testing environment is trying to load `zone.js` before running any specs.
+
+To solve this, reinstall `zone.js` as a dev dependency so the test bootstrap works,
+while your the runtime remains zoneless.
+```sh
+npm install -D zone.js
+```
+
+The `-D` flag makes sure that `zone.js` will be added under`devDependencies` only.
+
+After this, the test succeeds! It correctly finds `<h1>Welcome demoapp</h1>` in `app.html`.
 
