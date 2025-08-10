@@ -170,3 +170,48 @@ The `-D` flag makes sure that `zone.js` will be added under`devDependencies` onl
 
 After this, the test succeeds! It correctly finds `<h1>Welcome demoapp</h1>` in `app.html`.
 
+## Add Angular Material
+
+Manually install the Angular Material packages.
+
+Run this in the workspace root:
+
+```sh
+npm install @angular/material @angular/cdk @angular/animations
+```
+
+This adds the specified packages to `package.json`.
+
+Add the following to `styles.sass`:
+```sass
+@use '@angular/material' as mat
+
+html
+    color-scheme: light
+    @include mat.theme((
+        // Available color palettes:
+        //
+        // color: mat.$red-palette,
+        // color: mat.$green-palette,
+        // color: mat.$blue-palette,
+        // color: mat.$yellow-palette,
+        // color: mat.$cyan-palette,
+        // color: mat.$magenta-palette,
+        // color: mat.$orange-palette,
+        // color: mat.$chartreuse-palette,
+        // color: mat.$spring-green-palette,
+        color: mat.$azure-palette, // This one looks the best.
+        // color: mat.$violet-palette,
+        // color: mat.$rose-palette,
+        typography: Roboto,
+        density: 0
+    ))
+```
+
+Run `nx serve demoapp` if everything still works and change the `color-scheme` form `light` to `dark` to see if it works.
+
+
+
+# TODO:
+- Add I18N.
+
