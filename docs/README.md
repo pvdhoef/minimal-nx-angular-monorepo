@@ -16,7 +16,7 @@ npx create-nx-workspace@latest --help
 
 Create a workspace (monorepo):
 ```sh
-npx create-nx-workspace@latest angular-experiments \
+npx create-nx-workspace@latest minimal-nx-angular-monorepo \
   --preset=angular-monorepo \
   --appName=demoapp \
   --style=sass \
@@ -97,7 +97,7 @@ npm install
 Updating *all* packages at once can easily cause version mismatches,
 especially with things like TypeScript, ESLint, or Nx itself.
 
-## Convert the application to a zoneless application
+## Make the Angular application zoneless
 
 Modify `apps/demoapp/src/app/app-config.ts`:
 
@@ -218,7 +218,7 @@ html
         // color: mat.$orange-palette,
         // color: mat.$chartreuse-palette,
         // color: mat.$spring-green-palette,
-        color: mat.$azure-palette, // This one looks the best.
+        color: mat.$azure-palette,
         // color: mat.$violet-palette,
         // color: mat.$rose-palette,
         typography: Roboto,
