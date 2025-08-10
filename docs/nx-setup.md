@@ -60,8 +60,10 @@ Update Nx and Angular core packages first:
 nx migrate latest
 ```
 
-Then run:
+and refresh `node_modules`
 ```sh
+rm -rf node_modules
+rm package-lock.json
 npm install
 ```
 
@@ -85,8 +87,10 @@ So run this command to explicitly install the latest Angular packages:
 npx npm-check-updates -f '/^@angular\//' -u
 ```
 
-and
+and refresh `node_modules`
 ```sh
+rm -rf node_modules
+rm package-lock.json
 npm install
 ```
 
@@ -139,10 +143,10 @@ rm package-lock.json
 npm install
 ```
 
-After that, there will still be some references to `zone.js` in `package-lock.json`. This is not problematic.
+After that, there will still be some references to `zone.js` in `package-lock.json`. This isn't problematic.
 It’s just a record that one of the installed packages declares `zone.js` as a peer dependency.
 
-## Delete the `nx-welcome.ts` component
+## Delete the 'NxWelcome' component
 
 Delete the file `apps/demoapp/src/app/nx-welcome.ts` and all references to it (`NxWelcome`, `<app-nx-welcome>`).
 
@@ -155,7 +159,7 @@ Run the tests for the `demoapp` project:
 nx test demoapp
 ```
 
-... and see that it fails dramatically.
+... and see that it fails.
 
 The test runner setup is still configured for Angular’s default `zone.js`-based testing, so even though
 the app is zoneless, the testing environment is trying to load `zone.js` before running any specs.
@@ -166,7 +170,14 @@ while your the runtime remains zoneless.
 npm install -D zone.js
 ```
 
-The `-D` flag makes sure that `zone.js` will be added under`devDependencies` only.
+and refresh `node_modules`
+```sh
+rm -rf node_modules
+rm package-lock.json
+npm install
+```
+
+The `-D` flag on `npm install` makes sure that `zone.js` will be added under`devDependencies` only.
 
 After this, the test succeeds! It correctly finds `<h1>Welcome demoapp</h1>` in `app.html`.
 
@@ -178,6 +189,13 @@ Run this in the workspace root:
 
 ```sh
 npm install @angular/material @angular/cdk @angular/animations
+```
+
+and refresh `node_modules`
+```sh
+rm -rf node_modules
+rm package-lock.json
+npm install
 ```
 
 This adds the specified packages to `package.json`.
