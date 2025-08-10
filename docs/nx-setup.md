@@ -245,6 +245,9 @@ body, p
     font: var(--mat-sys-body-medium)
 ```
 
+Finally add some Angular Material components in `app.ts` and `app.html` by copying parts of the
+[Angular Material Components](https://material.angular.dev/components/categories) examples.
+
 # TODO:
 - Add I18N.
 
