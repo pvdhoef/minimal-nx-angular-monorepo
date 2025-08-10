@@ -210,7 +210,22 @@ html
 
 Run `nx serve demoapp` if everything still works and change the `color-scheme` form `light` to `dark` to see if it works.
 
+Add fonts to `index.html`.
 
+Insert these lines inside the `<head>` tag:
+```html
+<!-- Roboto font, note the newer Google Fonts v2 API (css2) -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+```
+
+To check if it works, add the following rule to `styles.sass`:
+```sass
+body, p
+    font: var(--mat-sys-body-medium)
+```
 
 # TODO:
 - Add I18N.
