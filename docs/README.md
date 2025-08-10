@@ -250,6 +250,3 @@ Finally add some Angular Material components in `app.ts` and `app.html` by copyi
 
 # TODO:
 - Add I18N.
-
-minimal-nx-angular-monorepo
-
