@@ -1,52 +1,38 @@
-# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# === Environment variables
+.env
 
-# Nx build cache and state
+# == Nx
 .nx/
 
-# compiled output
-dist
-tmp
-out-tsc
+# === Node.js
+node_modules/
 
-# dependencies
-node_modules
+# === Gradle / Kotlin / Java
+.gradle/
+.kotlin/
+build/
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# === Angular
+.angular/
+dist/
 
-# IDE - VSCode
+# === IntelliJ IDEA
+.idea/
+
+# === VS Code
+# Ignore everything inside `.vscode` except project-specific VS Code settings that are useful for all contributors:
+#
+# - settings.json:    Workspace settings (e.g., formatting, linting) that should be shared.
+# - tasks.json:       Build and run tasks for the project.
+# - launch.json:      Debugging configurations.
+# - extensions.json:  Recommended VS Code extensions for the project.
+#
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+# === System
 .DS_Store
 Thumbs.db
-
-.nx/cache
-.nx/workspace-data
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
-
-.angular
-
-vite.config.*.timestamp*
-vitest.config.*.timestamp*
