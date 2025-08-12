@@ -3,16 +3,25 @@
   <file id="ngi18n" original="ng.template">
     <unit id="7000937878388888764">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:2,5</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:2,3</note>
       </notes>
       <segment state="translated">
         <source>Fijn dat je er bent: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/> </source>
         <target>Glad you're here: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/> </target>
       </segment>
     </unit>
+    <unit id="6568196179076837803">
+      <notes>
+        <note category="location">apps/demoapp/client/src/app/app.html:3</note>
+      </notes>
+      <segment state="translated">
+        <source>Hallo, dit is een bericht van de GreetingComponent!</source>
+        <target>Hello, this is a message from the GreetingComponent!</target>
+      </segment>
+    </unit>
     <unit id="5806618252506548802">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:11,12</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:12,13</note>
       </notes>
       <segment state="translated">
         <source>Basis knop</source>
@@ -21,7 +30,7 @@
     </unit>
     <unit id="2816919893095215350">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:16,17</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:17,18</note>
       </notes>
       <segment state="translated">
         <source>Uitgeschakelde knop</source>
@@ -30,20 +39,11 @@
     </unit>
     <unit id="2306527459381879820">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:21,22</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:22,23</note>
       </notes>
       <segment state="translated">
         <source>Ziet er uit als knop maar is een link</source>
         <target>Looks like button but is a link</target>
-      </segment>
-    </unit>
-    <unit id="1622871994713627889">
-      <notes>
-        <note category="location">apps/demoapp/client/src/app/app.ts:17</note>
-      </notes>
-      <segment state="translated">
-        <source>Nederlands is de taal van de toekomst!</source>
-        <target>English is the language of the future!</target>
       </segment>
     </unit>
   </file>

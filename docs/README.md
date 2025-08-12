@@ -490,3 +490,39 @@ Search for `@angular/localize` in the codebase and notice that it is only used i
 
 - `project.json`: `"polyfills": ["@angular/localize/init"]` under `development`.
 - `test.setup.ts`: `import '@angular/localize/init';` on the first line.
+
+
+## Compile-time I18N'ed strings in variables
+
+Child component (greeting.component.ts):
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-greeting',
+  template: `<p>{{ message }}</p>`,
+})
+export class GreetingComponent {
+  @Input() message!: string;
+}
+```
+
+Parent component template (app.component.html):
+```html
+<app-greeting
+  [message]="'Welcome back!'"
+  i18n-message>
+</app-greeting>
+```
+
+Parent component (app.component.ts):
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent {}
+```
+
