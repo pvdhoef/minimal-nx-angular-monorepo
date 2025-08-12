@@ -144,7 +144,7 @@ npm install
 ```
 
 After that, there will still be some references to `zone.js` in `package-lock.json`. This isn't problematic.
-It’s just a record that one of the installed packages declares `zone.js` as a peer dependency.
+It’s just a record that some of the installed packages declare `zone.js` as a peer dependency.
 
 ## Delete the 'NxWelcome' component
 
@@ -278,7 +278,7 @@ workspace
 Each application is subdivided in multiple subprojects, mostly a `server` and a `client`
 like in `application-A` in the above example.
 But when there are multiple client interfaces for the application, they are even further subdivided under `clients`
-like in `application-A` in the above example.
+like in `application-B` in the above example.
 
 Moving the project deeper into the hierarchy involves
 - Renaming the name of the app from `demoapp` to `demoapp-client` in `project.json`.
@@ -296,7 +296,7 @@ nx serve-static demoapp-client
 
 ## Enable I18N for the demoapp
 
-Angular’s built-in `$localize` and `@angular/localize` are still used under Nx.
+Angular’s built-in `i18n`, `$localize` and `@angular/localize` are still used under Nx.
 
 Install the package:
 ```sh
@@ -329,11 +329,11 @@ and in `app.html`
 ```
 
 To be able to use `$localize`, the `polyfills` option in `project.json`
-under the `build` commands and should be set to:
+under the `build` commands should be set to:
 ```json
 "polyfills": ["@angular/localize/init"]
 ```
-and the `types` option in `tsconfig.app.json` to:
+and the `types` option in `tsconfig.app.json` should be set to:
 ```json
 "types": ["@angular/localize"]
 ```
@@ -382,7 +382,7 @@ to:
 }
 ```
 
-After this, the command command `nx extract-i18n demoapp-client` generates a `messages.xlf` file
+After this, the command `nx extract-i18n demoapp-client` generates a `messages.xlf` file
 in the specified directory under the project.
 
 ### Configure multiple Locales
@@ -435,6 +435,6 @@ If this command fails with a message like:
 ```sh
 ENOENT: no such file or directory, copyfile '<path>/index.html' -> '<path>/404.html'
 ```
-then the set the `spa` element to `false` under `serve-static` in `project.json`.
+then set the `spa` element to `false` under `serve-static` in `project.json`.
 When `spa` is `true` the [tool](https://www.npmjs.com/package/http-server) tries to create a `404.html` which will
 be served if a file is not found. This can be used for Single-Page App (SPA) hosting to serve the entry page.
