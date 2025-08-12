@@ -87,7 +87,7 @@
       "options": {
         "buildTarget": "demoapp-client:build",
         "staticFilePath": "dist/apps/demoapp/client/browser",
-        "spa": true
+        "spa": false
       }
     }
   },

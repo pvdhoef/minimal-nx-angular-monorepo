@@ -422,3 +422,19 @@ Create a new build and check if it builds for each language:
 ```sh
 nx build demoapp-client
 ```
+
+### Serve multiple locales during development
+
+For testing the multiple output variants that are generated when I18N is enabled,
+the following command can be used:
+```sh
+nx serve-static demoapp-client
+```
+
+If this command fails with a message like:
+```sh
+ENOENT: no such file or directory, copyfile '<path>/index.html' -> '<path>/404.html'
+```
+then the set the `spa` element to `false` under `serve-static` in `project.json`.
+When `spa` is `true` the [tool](https://www.npmjs.com/package/http-server) tries to create a `404.html` which will
+be served if a file is not found. This can be used for Single-Page App (SPA) hosting to serve the entry page.
