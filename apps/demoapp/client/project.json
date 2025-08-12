@@ -1,27 +1,27 @@
 {
-  "name": "demoapp",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "demoapp-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/demoapp/src",
+  "sourceRoot": "apps/demoapp/client/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/demoapp",
-        "browser": "apps/demoapp/src/main.ts",
+        "outputPath": "dist/apps/demoapp/client",
+        "browser": "apps/demoapp/client/src/main.ts",
         "polyfills": [],
-        "tsConfig": "apps/demoapp/tsconfig.app.json",
+        "tsConfig": "apps/demoapp/client/tsconfig.app.json",
         "inlineStyleLanguage": "sass",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/demoapp/public"
+            "input": "apps/demoapp/client/public"
           }
         ],
-        "styles": ["apps/demoapp/src/styles.sass"]
+        "styles": ["apps/demoapp/client/src/styles.sass"]
       },
       "configurations": {
         "production": {
@@ -52,10 +52,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "demoapp:build:production"
+          "buildTarget": "demoapp-client:build:production"
         },
         "development": {
-          "buildTarget": "demoapp:build:development"
+          "buildTarget": "demoapp-client:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -63,7 +63,7 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "demoapp:build"
+        "buildTarget": "demoapp-client:build"
       }
     },
     "lint": {
@@ -73,15 +73,15 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../coverage/apps/demoapp"
+        "reportsDirectory": "../../../coverage/apps/demoapp/client"
       }
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "demoapp:build",
-        "staticFilePath": "dist/apps/demoapp/browser",
+        "buildTarget": "demoapp-client:build",
+        "staticFilePath": "dist/apps/demoapp/client/browser",
         "spa": true
       }
     }
