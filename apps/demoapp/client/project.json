@@ -12,7 +12,7 @@
       "options": {
         "outputPath": "dist/apps/demoapp/client",
         "browser": "apps/demoapp/client/src/main.ts",
-        "polyfills": [],
+        "polyfills": ["@angular/localize/init"],
         "tsConfig": "apps/demoapp/client/tsconfig.app.json",
         "inlineStyleLanguage": "sass",
         "assets": [

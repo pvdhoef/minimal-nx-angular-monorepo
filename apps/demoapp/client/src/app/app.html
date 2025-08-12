@@ -1,4 +1,5 @@
 <h1>Welcome demoapp</h1>
+<p i18n>Nice to see you: {{ i18nMessage }} </p>
 
 <section>
   <div class="example-label">Extended FAB</div>
@@ -7,17 +8,17 @@
     <div class="example-flex-container">
       <button matFab extended>
         <mat-icon>favorite</mat-icon>
-        Basic
+        <span i18n>Basic</span>
       </button>
       <br/><br/>
       <button matFab extended disabled>
         <mat-icon>favorite</mat-icon>
-        Disabled
+        <span i18n>Disabled</span>
       </button>
       <br/><br/>
       <a matFab extended routerLink=".">
         <mat-icon>favorite</mat-icon>
-        Link
+        <span i18n>Link</span>
       </a>
     </div>
   </div>

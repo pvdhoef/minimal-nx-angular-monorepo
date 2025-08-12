@@ -310,9 +310,47 @@ rm package-lock.json
 npm install
 ```
 
-Add the import in your main.ts (or polyfills.ts in older projects):
+### Enable I18N annotations in code
+
+After this, verify if `extract-i18n` works:
+```sh
+nx extract-i18n demoapp-client
+```
+It should finish with "Extraction Complete. (Messages: 0)".
+
+Add some `i18n` and `$localize` annotations in the code, for example in `app.ts`:
+```ts
+readonly i18nMessage = $localize`I18N Translated message`;
+```
+
+and in `app.html`
+```html
+<p i18n>Nice to see you: {{ i18nMessage }} </p>
+```
+
+To be able to use `$localize`, the `polyfills` option in `project.json`
+under the `build` commands and should be set to:
+```json
+"polyfills": ["@angular/localize/init"]
+```
+and the `types` option in `tsconfig.app.json` to:
+```json
+"types": ["@angular/localize"]
+```
+
+After this the following tasks should run without errors or warnings:
+```sh
+nx lint demoapp-client
+nx serve demoapp-client
+nx build demoapp-client
+nx serve-static demoapp-client
+nx extract-i18n demoapp-client
+```
+
+The only task that does *not* work at this point is `test`. To fix this, insert the following line in `test.setup.ts`:
 ```ts
 import '@angular/localize/init';
 ```
 
-# TODO:
+After that, the `test` task should work too!
+
