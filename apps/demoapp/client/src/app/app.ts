@@ -14,5 +14,5 @@ import {MatButtonModule} from '@angular/material/button';
 export class App {
   protected title = 'demoapp';
 
-  readonly i18nMessage = $localize`I18N Translated message`;
+  readonly i18nMessage = $localize`Nederlands is de taal van de toekomst!`;
 }

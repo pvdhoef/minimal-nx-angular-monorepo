@@ -384,3 +384,41 @@ to:
 
 After this, the command command `nx extract-i18n demoapp-client` generates a `messages.xlf` file
 in the specified directory under the project.
+
+### Configure multiple Locales
+
+Add the following section to the end of `project.json`, after the complete `targets` section,
+just before the final closing `}`:
+
+```json
+  "i18n": {
+    "sourceLocale": "nl",
+    "locales": {
+      "en": "apps/demoapp/client/locales/messages.en.xlf"
+    }
+  }
+```
+
+Insert the following under `configurations` -> `production`:
+```json
+"localize": true,
+```
+
+and the following under `configurations` -> `development`:
+```json
+"localize": false,
+```
+
+After this, modify the i18n'ed sources `app.ts` and `app.html`.
+
+Update the source message files `messages.xlf`:
+```sh
+nx extract-i18n demoapp-client
+```
+
+Create the translated file `messages.en.xlf`.
+
+Create a new build and check if it builds for each language:
+```sh
+nx build demoapp-client
+```

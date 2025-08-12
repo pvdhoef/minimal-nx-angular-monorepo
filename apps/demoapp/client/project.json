@@ -25,6 +25,7 @@
       },
       "configurations": {
         "production": {
+          "localize": true,
           "budgets": [
             {
               "type": "initial",
@@ -40,6 +41,7 @@
           "outputHashing": "all"
         },
         "development": {
+          "localize": false,
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
@@ -87,6 +89,12 @@
         "staticFilePath": "dist/apps/demoapp/client/browser",
         "spa": true
       }
+    }
+  },
+  "i18n": {
+    "sourceLocale": "nl",
+    "locales": {
+      "en": "apps/demoapp/client/locales/messages.en.xlf"
     }
   }
 }
