@@ -294,5 +294,25 @@ nx build demoapp-client
 nx serve-static demoapp-client
 ```
 
+## Enable I18N for the demoapp
+
+Angular’s built-in `$localize` and `@angular/localize` are still used under Nx.
+
+Install the package:
+```sh
+npm install @angular/localize --save-dev
+```
+
+and refresh `node_modules`
+```sh
+rm -rf node_modules
+rm package-lock.json
+npm install
+```
+
+Add the import in your main.ts (or polyfills.ts in older projects):
+```ts
+import '@angular/localize/init';
+```
+
 # TODO:
-- Add I18N.
