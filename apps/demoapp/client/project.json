@@ -12,7 +12,6 @@
       "options": {
         "outputPath": "dist/apps/demoapp/client",
         "browser": "apps/demoapp/client/src/main.ts",
-        "polyfills": ["@angular/localize/init"],
         "tsConfig": "apps/demoapp/client/tsconfig.app.json",
         "inlineStyleLanguage": "sass",
         "assets": [
@@ -42,6 +41,7 @@
         },
         "development": {
           "localize": false,
+          "polyfills": ["@angular/localize/init"],
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true

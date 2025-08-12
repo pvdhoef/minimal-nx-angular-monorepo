@@ -438,3 +438,55 @@ ENOENT: no such file or directory, copyfile '<path>/index.html' -> '<path>/404.h
 then set the `spa` element to `false` under `serve-static` in `project.json`.
 When `spa` is `true` the [tool](https://www.npmjs.com/package/http-server) tries to create a `404.html` which will
 be served if a file is not found. This can be used for Single-Page App (SPA) hosting to serve the entry page.
+
+Note: setting `spa` to `false` might interfere with client side routing.
+But this will be solved by the `server` component of the app.
+
+## I18N configuration revisited: compile-time-only I18N
+
+The setup in the previous paragraph is only required when *runtime I18N* is used with the `$localize` directive.
+
+Instead of doing this in TypeScript, which forces `$localize` at runtime:
+```ts
+if (isPremium) {
+  return $localize`Premium User`;
+} else {
+  return $localize`Standard User`;
+}
+```
+
+Do it in the template, so I18N can be resolved at compile-time:
+```html
+@if (isPremium) {
+  <p i18n>Premium User</p>
+} @else {
+  <p i18n>Standard User</p>
+}
+```
+
+If only compile-time I18N is used, the polyfills aren't needed anymore.
+So modify `project.json` so that the I18N polyfills are only used in development mode
+so runtime `$localize` will be available for quick testing and JIT + live reload.
+
+```json
+"development": {
+  "localize": false,
+  "polyfills": ["@angular/localize/init"],
+  "optimization": false,
+  "extractLicenses": false,
+  "sourceMap": true
+}
+```
+
+Also revert `tsconfig.app.json` to its original state by removing `"@angular/localize"]` from `types`.
+
+Finally the `test.setup.ts` still requires `import '@angular/localize/init';` because testing setup
+doesn’t run the app like a production build.
+
+To sum it up:
+
+Search for `@angular/localize` in the codebase and notice that it is only used in `project.json` and `test.setup.ts`.
+(And in `package.json` and `package-lock.json` but that doesn't count.)
+
+- `project.json`: `"polyfills": ["@angular/localize/init"]` under `development`.
+- `test.setup.ts`: `import '@angular/localize/init';` on the first line.

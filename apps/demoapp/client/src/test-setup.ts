@@ -1,4 +1,6 @@
+// Angular's i18n features require the `$localize` polyfill during testing.
 import '@angular/localize/init';
+
 import '@angular/compiler';
 import '@analogjs/vitest-angular/setup-zone';
 
