@@ -63,7 +63,10 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "demoapp-client:build"
+        "buildTarget": "demoapp-client:build",
+        "outputPath": "apps/demoapp/client/locales",
+        "format": "xlf2",
+        "outFile": "messages.xlf"
       }
     },
     "lint": {

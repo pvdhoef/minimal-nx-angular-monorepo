@@ -354,3 +354,33 @@ import '@angular/localize/init';
 
 After that, the `test` task should work too!
 
+### Configure I18N extraction settings
+
+Currently, the command `nx extract-i18n demoapp-client` generates a `messages.xlf` file
+in the root directory of the monorepo.
+
+To make sure it is generated in the project directory, convert the following section in `project.json`:
+```json
+"extract-i18n": {
+  "executor": "@angular/build:extract-i18n",
+  "options": {
+    "buildTarget": "demoapp-client:build"
+  }
+}
+```
+
+to:
+```json
+"extract-i18n": {
+  "executor": "@angular/build:extract-i18n",
+  "options": {
+    "buildTarget": "demoapp-client:build",
+    "outputPath": "apps/demoapp/client/locales",
+    "format": "xlf2",
+    "outFile": "messages.xlf"
+  }
+}
+```
+
+After this, the command command `nx extract-i18n demoapp-client` generates a `messages.xlf` file
+in the specified directory under the project.
