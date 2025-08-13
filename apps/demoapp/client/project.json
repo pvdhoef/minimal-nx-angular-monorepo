@@ -63,12 +63,16 @@
             "defaultConfiguration": "development"
         },
         "extract-i18n": {
-            "executor": "@angular/build:extract-i18n",
+            "executor": "ng-extract-i18n-merge:ng-extract-i18n-merge",
             "options": {
                 "buildTarget": "demoapp-client:build",
                 "outputPath": "apps/demoapp/client/locales",
                 "format": "xlf2",
-                "outFile": "messages.xlf"
+                "targetFiles": [
+                    "messages.en.xlf"
+                ],
+                "trim": true,
+                "includeContext": true
             }
         },
         "lint": {

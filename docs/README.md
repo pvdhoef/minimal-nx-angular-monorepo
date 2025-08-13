@@ -164,10 +164,10 @@ nx test demoapp
 The test runner setup is still configured for Angular’s default `zone.js`-based testing, so even though
 the app is zoneless, the testing environment is trying to load `zone.js` before running any specs.
 
-To solve this, reinstall `zone.js` as a dev dependency so the test bootstrap works,
-while your the runtime remains zoneless.
+To solve this, reinstall `zone.js` as a dev dependency (by passing the `--save-dev` flag)
+so the test bootstrap works, while your the runtime remains zoneless.
 ```sh
-npm install -D zone.js
+npm install --save-dev zone.js
 ```
 
 and refresh `node_modules`
@@ -176,8 +176,6 @@ rm -rf node_modules
 rm package-lock.json
 npm install
 ```
-
-The `-D` flag on `npm install` makes sure that `zone.js` will be added under`devDependencies` only.
 
 After this, the test succeeds! It correctly finds `<h1>Welcome demoapp</h1>` in `app.html`.
 
@@ -300,7 +298,7 @@ Angular’s built-in `i18n`, `$localize` and `@angular/localize` are still used 
 
 Install the package:
 ```sh
-npm install @angular/localize --save-dev
+npm install --save-dev @angular/localize
 ```
 
 and refresh `node_modules`
@@ -526,3 +524,62 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 ```
 
+## Using `ng-extract-i18n-merge` for I18N extraction
+
+The standard `extract-i18n` tool does not add/remove new/removed translations to/from the target translation files.
+
+For this, the [ng-extract-i18n-merge](https://www.npmjs.com/package/ng-extract-i18n-merge) is a better tool.
+
+To install this tool run the following command:
+```sh
+npm install --save-dev ng-extract-i18n-merge
+```
+
+and refresh `node_modules`
+```sh
+rm -rf node_modules
+rm package-lock.json
+npm install
+```
+
+In `project.json` find the following configuration:
+```json
+"extract-i18n": {
+    "executor": "@angular/build:extract-i18n",
+    "options": {
+        "buildTarget": "demoapp-client:build",
+        "outputPath": "apps/demoapp/client/locales",
+        "format": "xlf2",
+        "outFile": "messages.xlf"
+    }
+},
+```
+
+and change it to:
+```json
+"extract-i18n": {
+    "executor": "ng-extract-i18n-merge:ng-extract-i18n-merge",
+    "options": {
+        "buildTarget": "demoapp-client:build",
+        "outputPath": "apps/demoapp/client/locales",
+        "format": "xlf2",
+        "targetFiles": [
+            "messages.en.xlf"
+        ],
+        "trim": true,
+        "includeContext": true
+    }
+}
+```
+
+Now the `nx extract-i18n demoapp-client` can be run and it will automatically
+merge new or deleted entries with the existing translation files.
+
+However, this tool does not generate warnings when a new unit is not translated.
+See for example [this issue](https://github.com/daniel-sc/ng-extract-i18n-merge/issues/57).
+
+Untranslated texts have a missing or empty `<target>` element, are marked with `state="initial"`,
+or have the same value in the `<source>` and `<target>` elements.
+
+This may be solved later with a separate, to be developed `verify-i18n` command
+that can be attached as a dependency to the `build` commmand.

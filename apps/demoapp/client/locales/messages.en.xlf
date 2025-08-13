@@ -6,8 +6,8 @@
         <note category="location">apps/demoapp/client/src/app/app.html:2,3</note>
       </notes>
       <segment state="translated">
-        <source>Fijn dat je er bent: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/> </source>
-        <target>Glad you're here: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/> </target>
+        <source>Fijn dat je er bent: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/></source>
+        <target>Glad you&apos;re here: <ph id="0" equiv="INTERPOLATION" disp="{{ i18nMessage }}"/></target>
       </segment>
     </unit>
     <unit id="6568196179076837803">
@@ -21,7 +21,7 @@
     </unit>
     <unit id="5806618252506548802">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:12,13</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:17,18</note>
       </notes>
       <segment state="translated">
         <source>Basis knop</source>
@@ -30,16 +30,25 @@
     </unit>
     <unit id="2816919893095215350">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:17,18</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:22,23</note>
       </notes>
       <segment state="translated">
         <source>Uitgeschakelde knop</source>
         <target>Disabled button</target>
       </segment>
     </unit>
+    <unit id="2118343155910799035">
+      <notes>
+        <note category="location">apps/demoapp/client/src/app/app.html:6,8</note>
+      </notes>
+      <segment state="initial">
+        <source>Wat gebeurt er met &apos;messages.xlf` als er nieuwe teksten bij komen terwijl een deel van de bestaande teksten al vertaald is?</source>
+        <target>Wat gebeurt er met &apos;messages.xlf` als er nieuwe teksten bij komen terwijl een deel van de bestaande teksten al vertaald is?</target>
+      </segment>
+    </unit>
     <unit id="2306527459381879820">
       <notes>
-        <note category="location">apps/demoapp/client/src/app/app.html:22,23</note>
+        <note category="location">apps/demoapp/client/src/app/app.html:27,28</note>
       </notes>
       <segment state="translated">
         <source>Ziet er uit als knop maar is een link</source>
