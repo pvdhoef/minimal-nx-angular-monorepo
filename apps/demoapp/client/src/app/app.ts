@@ -6,22 +6,28 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-  imports: [RouterModule, MatIconModule, MatDividerModule, MatButtonModule, forwardRef(() => GreetingComponent)],
-  selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.sass',
+    imports: [
+        RouterModule,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        forwardRef(() => GreetingComponent)
+    ],
+    selector: 'app-root',
+    templateUrl: './app.html',
+    styleUrl: './app.sass',
 })
 export class App {
-  protected title = 'demoapp';
+    protected title = 'demoapp';
 
-  // readonly i18nMessage = $localize`Nederlands is de taal van de toekomst!`;
-  readonly i18nMessage = "Dit wordt *NIET* vertaald!";
+    // readonly i18nMessage = $localize`Nederlands is de taal van de toekomst!`;
+    readonly i18nMessage = "Dit wordt *NIET* vertaald!";
 }
 
 @Component({
-  selector: 'app-greeting',
-  template: `<p>{{ message }}</p>`,
+    selector: 'app-greeting',
+    template: `<p>{{ message }}</p>`,
 })
 export class GreetingComponent {
-  @Input({required: true}) message!: string;
+    @Input({required: true}) message!: string;
 }

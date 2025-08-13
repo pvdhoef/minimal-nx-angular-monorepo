@@ -1,100 +1,100 @@
 {
-  "name": "demoapp-client",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/demoapp/client/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/demoapp/client",
-        "browser": "apps/demoapp/client/src/main.ts",
-        "tsConfig": "apps/demoapp/client/tsconfig.app.json",
-        "inlineStyleLanguage": "sass",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/demoapp/client/public"
-          }
-        ],
-        "styles": ["apps/demoapp/client/src/styles.sass"]
-      },
-      "configurations": {
-        "production": {
-          "localize": true,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "demoapp-client",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/demoapp/client/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular/build:application",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/demoapp/client",
+                "browser": "apps/demoapp/client/src/main.ts",
+                "tsConfig": "apps/demoapp/client/tsconfig.app.json",
+                "inlineStyleLanguage": "sass",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/demoapp/client/public"
+                    }
+                ],
+                "styles": ["apps/demoapp/client/src/styles.sass"]
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+            "configurations": {
+                "production": {
+                    "localize": true,
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "4kb",
+                            "maximumError": "8kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "localize": false,
+                    "polyfills": ["@angular/localize/init"],
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "continuous": true,
+            "executor": "@angular/build:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "demoapp-client:build:production"
+                },
+                "development": {
+                    "buildTarget": "demoapp-client:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+            "executor": "@angular/build:extract-i18n",
+            "options": {
+                "buildTarget": "demoapp-client:build",
+                "outputPath": "apps/demoapp/client/locales",
+                "format": "xlf2",
+                "outFile": "messages.xlf"
             }
-          ],
-          "outputHashing": "all"
         },
-        "development": {
-          "localize": false,
-          "polyfills": ["@angular/localize/init"],
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "continuous": true,
-      "executor": "@angular/build:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "demoapp-client:build:production"
+        "lint": {
+            "executor": "@nx/eslint:lint"
         },
-        "development": {
-          "buildTarget": "demoapp-client:build:development"
+        "test": {
+            "executor": "@nx/vite:test",
+            "outputs": ["{options.reportsDirectory}"],
+            "options": {
+                "reportsDirectory": "../../../coverage/apps/demoapp/client"
+            }
+        },
+        "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "demoapp-client:build",
+                "staticFilePath": "dist/apps/demoapp/client/browser",
+                "spa": false
+            }
         }
-      },
-      "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "demoapp-client:build",
-        "outputPath": "apps/demoapp/client/locales",
-        "format": "xlf2",
-        "outFile": "messages.xlf"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
-      "options": {
-        "reportsDirectory": "../../../coverage/apps/demoapp/client"
-      }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "demoapp-client:build",
-        "staticFilePath": "dist/apps/demoapp/client/browser",
-        "spa": false
-      }
+    "i18n": {
+        "sourceLocale": "nl",
+        "locales": {
+            "en": "apps/demoapp/client/locales/messages.en.xlf"
+        }
     }
-  },
-  "i18n": {
-    "sourceLocale": "nl",
-    "locales": {
-      "en": "apps/demoapp/client/locales/messages.en.xlf"
-    }
-  }
 }
