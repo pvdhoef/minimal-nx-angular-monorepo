@@ -583,3 +583,33 @@ or have the same value in the `<source>` and `<target>` elements.
 
 This may be solved later with a separate, to be developed `verify-i18n` command
 that can be attached as a dependency to the `build` commmand.
+
+## I18N in libraries
+
+For internal, app-controlled i18n in Nx, the cleanest approach is to make your libraries text-agnostic:
+don’t hardcode user-visible copy in the lib.
+Instead, let the app supply all strings so the app’s extraction owns the translations.
+
+- For Nx with app-controlled i18n, design libraries to accept all user-visible text from the app.
+
+- Prefer content projection for rich text; use string inputs with `i18n-<input>` for simple labels/ARIA.
+
+- Provide injection tokens for system strings/formats when needed.
+
+- Avoid `$localize`/`i18n` inside lib templates unless you truly want the lib to ship its own copy.
+
+[Angular Material](https://github.com/angular/components) is the perfect example of this approach.
+
+Material components:
+
+- Don’t contain any $localize or i18n markup internally.
+
+- Don’t ship translation files (messages.xlf).
+
+- Do let the caller control all user-visible text through:
+
+    - Content projection (e.g., <mat-button> content is whatever you put inside)
+
+    - Inputs for labels, placeholders, ARIA text (ariaLabel, placeholder, etc.)
+
+    - Injection tokens for “system” or default strings (e.g., MAT_DATE_LOCALE, MAT_PAGINATOR_INTL).
