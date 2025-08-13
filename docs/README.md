@@ -602,14 +602,14 @@ Instead, let the app supply all strings so the app’s extraction owns the trans
 
 Material components:
 
-- Don’t contain any $localize or i18n markup internally.
+- Don’t contain any `$localize` or `i18n` markup internally.
 
-- Don’t ship translation files (messages.xlf).
+- Don’t ship translation files (`messages.xlf`).
 
 - Do let the caller control all user-visible text through:
 
-    - Content projection (e.g., <mat-button> content is whatever you put inside)
+    - Content projection (e.g., `<mat-button>` content is whatever you put inside)
 
     - Inputs for labels, placeholders, ARIA text (ariaLabel, placeholder, etc.)
 
-    - Injection tokens for “system” or default strings (e.g., MAT_DATE_LOCALE, MAT_PAGINATOR_INTL).
+    - Injection tokens for “system” or default strings (e.g., `MAT_DATE_LOCALE`, `MAT_PAGINATOR_INTL`).
