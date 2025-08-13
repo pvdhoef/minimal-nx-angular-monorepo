@@ -595,8 +595,8 @@ that can be attached as a dependency to the `build` commmand.
 
 ## I18N in libraries
 
-For internal, app-controlled i18n in Nx, the cleanest approach is to make your libraries text-agnostic:
-don’t hardcode user-visible copy in the lib.
+For internal, app-controlled i18n in Nx, the cleanest approach is to make ibraries text-agnostic:
+don’t hardcode user-visible text in the lib.
 Instead, let the app supply all strings so the app’s extraction owns the translations.
 
 - For Nx with app-controlled i18n, design libraries to accept all user-visible text from the app.
