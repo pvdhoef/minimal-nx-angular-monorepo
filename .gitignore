@@ -3,6 +3,8 @@
 
 # == Nx
 .nx/
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
 
 # === Node.js
 node_modules/
@@ -36,3 +38,4 @@ dist/
 # === System
 .DS_Store
 Thumbs.db
+
