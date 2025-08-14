@@ -3,6 +3,8 @@
 
 # == Nx
 .nx/
+# Coverage artifacts generated when running `nx test` with the `--coverage` flag.
+/coverage/
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
 
