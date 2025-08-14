@@ -708,3 +708,56 @@ And check if it works by running:
 ```sh
 nx serve demoapp-client
 ```
+
+## Minimum Viable Nx + Angular Monorepo Checklist
+
+### 1. Workspace Structure
+- [ ] Apps in `apps/<appname>/<part>` (e.g., `apps/myapp/client`, `apps/myapp/server`)
+- [ ] Libraries in `libs/<scope>/<type>` (e.g., `libs/angular/reporting`, `libs/kotlin/persistency`)
+- [ ] No “misc” or “common” dumping grounds — define clear scopes
+
+### 2. Module Boundaries
+- [ ] `@nx/enforce-module-boundaries` ESLint rule enabled in `eslint.json`
+- [ ] `tags` defined in `nx.json` for each lib/app
+- [ ] Rules in `nx.json` preventing forbidden imports
+
+### 3. Testing
+- [ ] Unit testing tool chosen (Jest, Karma, Vitest)
+- [ ] Test files next to implementation (`*.spec.ts`)
+- [ ] Coverage reports go to `/coverage/<project>` and are `.gitignore`d
+- [ ] Optional: E2E project (Cypress/Playwright) in `apps/<app>-e2e`
+
+### 4. Linting & Formatting
+- [ ] Angular ESLint configured
+- [ ] Nx ESLint plugin configured
+- [ ] Prettier installed with locked config (`.prettierrc`)
+
+### 5. Environment Config
+- [ ] `fileReplacements` set up in `project.json` for `environment.prod.ts`
+- [ ] `.env` or equivalent for secrets (don’t check in sensitive data)
+- [ ] Per-environment builds tested
+
+### 6. I18N
+- [ ] `$localize` available in dev builds
+- [ ] `extract-i18n` target defined in `project.json`
+- [ ] Missing translation handling configured
+- [ ] Optional: Post-extraction merge/validation script
+
+### 7. Build & Deploy
+- [ ] Use `nx run-many` or `nx affected` in scripts
+- [ ] Nx cache enabled (local or Nx Cloud)
+- [ ] Build output paths verified for each app/lib
+- [ ] Optional: Optimize `angular.json` budgets for realistic limits
+
+### 8. Path Aliases
+- [ ] `tsconfig.base.json` has clean `paths` for libs (e.g., `@myorg/mylib`)
+- [ ] No deep relative imports (`../../../`)
+
+### 9. Component Development
+- [ ] Storybook integrated for UI libs (if applicable)
+- [ ] Example/demo apps in `apps/` for testing libs
+
+### 10. CI/CD
+- [ ] CI runs `nx affected` commands for builds, tests, and lint
+- [ ] Lockfile committed (`package-lock.json` or `yarn.lock`)
+- [ ] Node & package manager versions pinned in `.nvmrc` or `.node-version`
