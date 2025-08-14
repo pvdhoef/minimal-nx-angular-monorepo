@@ -1,6 +1,64 @@
-# Minimal Nx Angular Monorepo
+# Setting up a Minimal Nx Angular Monorepo
 
-See the Nx [angular-monorepo-tutorial](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial)
+This document describes how to set up a minimal Nx monorepo for Angular projects.
+
+See also the
+Nx [angular-monorepo-tutorial](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial).
+
+## Minimum Viable Nx + Angular Monorepo Checklist
+
+### 1. Workspace Structure
+- [ ] Apps in `apps/<appname>/<part>` (e.g., `apps/myapp/client`, `apps/myapp/server`)
+- [ ] Libraries in `libs/<scope>/<type>` (e.g., `libs/angular/reporting`, `libs/kotlin/persistency`)
+- [ ] No “misc” or “common” dumping grounds — define clear scopes
+
+### 2. Module Boundaries
+- [ ] `@nx/enforce-module-boundaries` ESLint rule enabled in `eslint.json`
+- [ ] `tags` defined in `nx.json` for each app/lib
+- [ ] Rules in `nx.json` preventing forbidden imports
+
+### 3. Testing
+- [ ] Unit testing tool chosen (Jest, Karma, Vitest)
+- [ ] Test files next to implementation (`*.spec.ts`)
+- [ ] Coverage reports go to `/coverage/<project>` and are `.gitignore`d
+- [ ] Optional: E2E project (Cypress/Playwright) in `apps/<app>-e2e`
+
+### 4. Linting & Formatting
+- [ ] Angular ESLint configured
+- [ ] Nx ESLint plugin configured
+- [ ] Prettier installed with locked config (`.prettierrc`)
+
+### 5. Environment Config
+- [ ] `fileReplacements` set up in `project.json` for `environment.prod.ts`
+- [ ] `.env` or equivalent for secrets (don’t check in sensitive data)
+- [ ] Per-environment builds tested
+
+### 6. I18N
+- [ ] `$localize` available in dev builds
+- [ ] `extract-i18n` target defined in `project.json`
+- [ ] Missing translation handling configured
+- [ ] Optional: Post-extraction merge/validation script
+
+### 7. Build & Deploy
+- [ ] Use `nx run-many` or `nx affected` in scripts
+- [ ] Nx cache enabled (local or Nx Cloud)
+- [ ] Build output paths verified for each app/lib
+- [ ] Optional: Optimize `angular.json` budgets for realistic limits
+
+### 8. Path Aliases
+- [ ] `tsconfig.base.json` has clean `paths` for libs (e.g., `@myorg/mylib`)
+- [ ] No deep relative imports (`../../../`)
+
+### 9. Component Development
+- [ ] Storybook integrated for UI libs (if applicable)
+- [ ] Example/demo apps in `apps/` for testing libs
+
+### 10. CI/CD
+- [ ] CI runs `nx affected` commands for builds, tests, and lint
+- [ ] Lockfile committed (`package-lock.json` or `yarn.lock`)
+- [ ] Node & package manager versions pinned in `.nvmrc` or `.node-version`
+
+## Setting up Nx
 
 Check if Nx is installed:
 ```sh
@@ -67,8 +125,7 @@ nx migrate latest
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -94,8 +151,7 @@ npx npm-check-updates -f '/^@angular\//' -u
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -143,8 +199,7 @@ npm uninstall zone.js
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -170,15 +225,14 @@ The test runner setup is still configured for Angular’s default `zone.js`-base
 the app is zoneless, the testing environment is trying to load `zone.js` before running any specs.
 
 To solve this, reinstall `zone.js` as a dev dependency (by passing the `--save-dev` flag)
-so the test bootstrap works, while your the runtime remains zoneless.
+so the test bootstrap works, while the runtime remains zoneless.
 ```sh
 npm install --save-dev zone.js
 ```
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -196,8 +250,7 @@ npm install @angular/material @angular/cdk @angular/animations
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -309,8 +362,7 @@ npm install --save-dev @angular/localize
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -501,7 +553,7 @@ Search for `@angular/localize` in the codebase and notice that it is only used i
 Sometimes it may be necessary to refer to translated texts in variables.
 Component parameters can be used for that purpose.
 
-For examle, the child component (greeting.component.ts):
+For example, the child component (greeting.component.ts):
 ```ts
 import { Component, Input } from '@angular/core';
 
@@ -546,8 +598,7 @@ npm install --save-dev ng-extract-i18n-merge
 
 and refresh `node_modules`
 ```sh
-rm -rf node_modules
-rm package-lock.json
+rm -rf node_modules package-lock.json
 npm install
 ```
 
@@ -591,12 +642,12 @@ Untranslated texts have a missing or empty `<target>` element, are marked with `
 or have the same value in the `<source>` and `<target>` elements.
 
 This may be solved later with a separate, to be developed `verify-i18n` command
-that can be attached as a dependency to the `build` commmand.
+that can be attached as a dependency to the `build` command.
 
 ## I18N in libraries
 
-For internal, app-controlled i18n in Nx, the cleanest approach is to make ibraries text-agnostic:
-don’t hardcode user-visible text in the lib.
+For internal, app-controlled i18n in Nx, the cleanest approach is to make libraries text-agnostic:
+don’t hardcode user-visible text in the library.
 Instead, let the app supply all strings so the app’s extraction owns the translations.
 
 - For Nx with app-controlled i18n, design libraries to accept all user-visible text from the app.
@@ -605,7 +656,7 @@ Instead, let the app supply all strings so the app’s extraction owns the trans
 
 - Provide injection tokens for system strings/formats when needed.
 
-- Avoid `$localize`/`i18n` inside lib templates unless you truly want the lib to ship its own copy.
+- Avoid `$localize`/`i18n` inside library templates unless you truly want the library to ship its own copy.
 
 [Angular Material](https://github.com/angular/components) is the perfect example of this approach.
 
@@ -689,7 +740,7 @@ nx test angular-demolib
 
 ### Use the library in the demoapp
 
-The libary creation tool generated a component `angular-demolib` under `libs/angular/demolib/src/lib`.
+The library creation tool generated a component `angular-demolib` under `libs/angular/demolib/src/lib`.
 
 Insert the following in `app.ts`:
 
@@ -708,56 +759,3 @@ And check if it works by running:
 ```sh
 nx serve demoapp-client
 ```
-
-## Minimum Viable Nx + Angular Monorepo Checklist
-
-### 1. Workspace Structure
-- [ ] Apps in `apps/<appname>/<part>` (e.g., `apps/myapp/client`, `apps/myapp/server`)
-- [ ] Libraries in `libs/<scope>/<type>` (e.g., `libs/angular/reporting`, `libs/kotlin/persistency`)
-- [ ] No “misc” or “common” dumping grounds — define clear scopes
-
-### 2. Module Boundaries
-- [ ] `@nx/enforce-module-boundaries` ESLint rule enabled in `eslint.json`
-- [ ] `tags` defined in `nx.json` for each lib/app
-- [ ] Rules in `nx.json` preventing forbidden imports
-
-### 3. Testing
-- [ ] Unit testing tool chosen (Jest, Karma, Vitest)
-- [ ] Test files next to implementation (`*.spec.ts`)
-- [ ] Coverage reports go to `/coverage/<project>` and are `.gitignore`d
-- [ ] Optional: E2E project (Cypress/Playwright) in `apps/<app>-e2e`
-
-### 4. Linting & Formatting
-- [ ] Angular ESLint configured
-- [ ] Nx ESLint plugin configured
-- [ ] Prettier installed with locked config (`.prettierrc`)
-
-### 5. Environment Config
-- [ ] `fileReplacements` set up in `project.json` for `environment.prod.ts`
-- [ ] `.env` or equivalent for secrets (don’t check in sensitive data)
-- [ ] Per-environment builds tested
-
-### 6. I18N
-- [ ] `$localize` available in dev builds
-- [ ] `extract-i18n` target defined in `project.json`
-- [ ] Missing translation handling configured
-- [ ] Optional: Post-extraction merge/validation script
-
-### 7. Build & Deploy
-- [ ] Use `nx run-many` or `nx affected` in scripts
-- [ ] Nx cache enabled (local or Nx Cloud)
-- [ ] Build output paths verified for each app/lib
-- [ ] Optional: Optimize `angular.json` budgets for realistic limits
-
-### 8. Path Aliases
-- [ ] `tsconfig.base.json` has clean `paths` for libs (e.g., `@myorg/mylib`)
-- [ ] No deep relative imports (`../../../`)
-
-### 9. Component Development
-- [ ] Storybook integrated for UI libs (if applicable)
-- [ ] Example/demo apps in `apps/` for testing libs
-
-### 10. CI/CD
-- [ ] CI runs `nx affected` commands for builds, tests, and lint
-- [ ] Lockfile committed (`package-lock.json` or `yarn.lock`)
-- [ ] Node & package manager versions pinned in `.nvmrc` or `.node-version`
