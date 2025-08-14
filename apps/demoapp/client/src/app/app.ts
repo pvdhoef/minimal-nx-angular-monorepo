@@ -5,13 +5,16 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 
+import { AngularDemolib } from '@pvdhoef/demolib';
+
 @Component({
     imports: [
         RouterModule,
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        forwardRef(() => GreetingComponent)
+        forwardRef(() => GreetingComponent),
+        AngularDemolib
     ],
     selector: 'app-root',
     templateUrl: './app.html',

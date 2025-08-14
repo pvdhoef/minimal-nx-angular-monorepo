@@ -622,3 +622,89 @@ Material components:
     - Inputs for labels, placeholders, ARIA text (ariaLabel, placeholder, etc.)
 
     - Injection tokens for “system” or default strings (e.g., `MAT_DATE_LOCALE`, `MAT_PAGINATOR_INTL`).
+
+## Add an Angular library
+
+Show all options for `nx generate @nx/angular:library`:
+```sh
+nx generate @nx/angular:library --help
+```
+
+Create a library:
+```sh
+nx generate @nx/angular:library \
+    --name angular-demolib \
+    --directory libs/angular/demolib \
+    --importPath "@pvdhoef/demolib" \
+    --prefix ph \
+    --style sass \
+    --unitTestRunner=vitest
+```
+
+After this command a directory `libs/angular/demolib` has been generated.
+
+And in the root directory, the following has been added to `nx.json` under `generators`:
+```json
+"@nx/angular:library": {
+    "linter": "eslint",
+    "unitTestRunner": "vitest"
+},
+"@nx/angular:component": {
+    "style": "sass"
+}
+```
+
+And in `tsconfig.base.json`, the path to the library has been added to `paths` under `compilerOptions`
+```sh
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        ... // Other settings
+        "paths": {
+            "@pvdhoef/demolib": ["libs/angular/demolib/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
+}
+```
+
+These paths are just raw path mappings for TypeScript.
+
+That means when the app imports:
+```ts
+import { FooComponent } from '@pvdhoef/demolib';
+```
+
+TypeScript follows the path to the raw `.ts` file in `libs/angular/demolib/src/index.ts`
+and compiles it together with the app.
+
+It also adds some patterns to `.gitignore` but these can be deleted.
+
+### Test the library
+
+```sh
+nx test angular-demolib
+```
+
+### Use the library in the demoapp
+
+The libary creation tool generated a component `angular-demolib` under `libs/angular/demolib/src/lib`.
+
+Insert the following in `app.ts`:
+
+```ts
+import { AngularDemolib } from '@pvdhoef/demolib';
+```
+
+And add `AngularDemolib` to the `imports` of the component.
+
+Insert the following in `app.html`:
+```html
+<ph-angular-demolib></ph-angular-demolib>
+```
+
+And check if it works by running:
+```sh
+nx serve demoapp-client
+```
