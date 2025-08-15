@@ -2,8 +2,14 @@
 
 This document describes how to set up a minimal Nx monorepo for Angular projects.
 
+The final result of this installation is in this repository and can be cloned on your local machine:
+```sh
+git clone https://github.com/pvdhoef/minimal-nx-angular-monorepo.git
+```
+
 See also the
 Nx [angular-monorepo-tutorial](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial).
+
 
 ## Minimum Viable Nx + Angular Monorepo Checklist
 
