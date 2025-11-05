@@ -38,6 +38,9 @@ bin/
 # ====== IntelliJ IDEA
 .idea/
 
+# ====== Dotenvx key files
+.env.keys
+
 # ====== Environment variables
 .env
 .env.local
