@@ -43,7 +43,7 @@ bin/
 
 # ====== Environment variables
 .env
-.env.local
+.env.*
 
 # ====== Vendored libraries
 /vendor/
