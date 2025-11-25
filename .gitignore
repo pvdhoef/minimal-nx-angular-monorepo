@@ -1,4 +1,8 @@
 
+# ====== Org Mode
+# Temporary items and packages created by Emacs Org Mode processing.
+.org/
+
 # ====== Nx
 .nx/
 .github/instructions/nx.instructions.md
